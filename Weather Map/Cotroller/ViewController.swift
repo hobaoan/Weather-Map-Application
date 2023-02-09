@@ -108,7 +108,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     }
        
     func mapView(_ map: MKMapView, didSelect view: MKAnnotationView) {
-        print("Tapped on marker")
+        let weatherViewController = WeatherViewCotroller()
+        self.present(weatherViewController, animated: true)
     }
 
 
