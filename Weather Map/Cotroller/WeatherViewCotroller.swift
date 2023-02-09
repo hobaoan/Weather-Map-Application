@@ -1,19 +1,17 @@
 //
-//  ViewController.swift
+//  WeatherViewCotroller.swift
 //  Weather Map
 //
 //  Created by Hồ Bảo An on 09/02/2023.
 //
 
+import Foundation
 import UIKit
 
-class ViewController: UIViewController {
-
+class WeatherViewCotroller: UIViewController {
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        view.backgroundColor = UIColor.white
     }
-
-
 }
-
