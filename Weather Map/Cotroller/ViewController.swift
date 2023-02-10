@@ -15,8 +15,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     
     var lat: Double = 0
     var lon: Double = 0
-    var name: String = ""
-    var inputNameCity: String = ""
+    var inputNameCity: String = "111"
+    
+    public var name: String = ""
+    public var temp: Double = 1
+    public var humidity: Int = 1
+    public var cloud: Int = 1
+    public var wind: Double = 1
+    public var icon: String = ""
 
     private let map: MKMapView = {
         let map = MKMapView()
@@ -92,6 +98,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
                     self.name = weatherData.name
                     self.lon = weatherData.coord.lon
                     self.lat = weatherData.coord.lat
+                    self.temp = weatherData.main.temp
+                    self.humidity = weatherData.main.humidity
+                    self.cloud = weatherData.clouds.all
+                    self.wind = weatherData.wind.speed
+                    self.icon = weatherData.weather[0].icon
                     
                     self.viewDidLayoutSubviews()
                 }
@@ -110,6 +121,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     func mapView(_ map: MKMapView, didSelect view: MKAnnotationView) {
         let weatherViewController = WeatherViewCotroller()
         self.present(weatherViewController, animated: true)
+        return
     }
 
 

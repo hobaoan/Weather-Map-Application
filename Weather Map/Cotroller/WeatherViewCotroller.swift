@@ -20,14 +20,28 @@ class WeatherViewCotroller: UIViewController {
     let cloudLabel = UILabel()
     let WindyLabel = UILabel()
     
+    var nameCityPassed = ""
+    var tempPassed: Double = 1
+    var humidityPassed: Int = 1
+    var cloudPassed: Int = 1
+    var windPassed: Double = 1
+    var iconPassed: String = ""
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
         
-        setDataWeather(cityName: cityName)
+        // truyền data từ các biến bên ViewController
+        nameCityPassed = (presentingViewController as! ViewController).name
+        tempPassed = (presentingViewController as! ViewController).temp
+        humidityPassed = (presentingViewController as! ViewController).humidity
+        cloudPassed = (presentingViewController as! ViewController).cloud
+        windPassed = (presentingViewController as! ViewController).wind
+        iconPassed = (presentingViewController as! ViewController).icon
         
+        
+        setupCityLabel()
         setupIconImage()
         setupTempLabel()
         setupHumidityImg()
@@ -36,14 +50,14 @@ class WeatherViewCotroller: UIViewController {
         setupHumidityLabel()
         setupCloudLabel()
         setupWindyLabel()
+        
+        
+        
     }
+
     
-    public func setDataWeather (cityName: String) {
-        setupCityLabel(cityName: cityName)
-    }
-    
-    func setupCityLabel(cityName: String) {
-           cityLabel.text = cityName
+    func setupCityLabel() {
+           cityLabel.text = nameCityPassed
            cityLabel.textAlignment = .center
            cityLabel.font = UIFont.systemFont(ofSize: 24, weight: .bold)
            view.addSubview(cityLabel)
@@ -54,29 +68,31 @@ class WeatherViewCotroller: UIViewController {
            cityLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16).isActive = true
        }
        
-       func setupIconImage() {
-           iconImage.image = UIImage(named: "weather.png")
-           iconImage.contentMode = .scaleAspectFit
-           view.addSubview(iconImage)
-           
-           iconImage.translatesAutoresizingMaskIntoConstraints = false
-           
-           //Distance below top
-           iconImage.topAnchor.constraint(equalTo: cityLabel.bottomAnchor, constant: 30).isActive = true
-           iconImage.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-           iconImage.widthAnchor.constraint(equalToConstant: 200).isActive = true
-           iconImage.heightAnchor.constraint(equalToConstant: 200).isActive = true
-       }
-       
+    func setupIconImage() {
+        
+        iconImage.image = UIImage(named: "weather.png")
+        iconImage.contentMode = .scaleAspectFit
+        view.addSubview(iconImage)
+                   
+        iconImage.translatesAutoresizingMaskIntoConstraints = false
+                   
+        //Distance below top
+        iconImage.topAnchor.constraint(equalTo: cityLabel.bottomAnchor, constant: 30).isActive = true
+        iconImage.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        iconImage.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        iconImage.heightAnchor.constraint(equalToConstant: 200).isActive = true
+      }
+
        func setupTempLabel() {
-           tempLabel.text = "25°C"
+           let intTemp = Int(tempPassed)
+           tempLabel.text = "\(intTemp)℃"
            tempLabel.textAlignment = .center
            tempLabel.font = UIFont.systemFont(ofSize: 100, weight: .bold)
            tempLabel.textColor = UIColor(red: 15/255, green: 149/255, blue: 143/255, alpha: 1)
            view.addSubview(tempLabel)
            
            tempLabel.translatesAutoresizingMaskIntoConstraints = false
-           tempLabel.topAnchor.constraint(equalTo: iconImage.bottomAnchor, constant: 16).isActive = true
+           tempLabel.topAnchor.constraint(equalTo: iconImage.bottomAnchor, constant: 20).isActive = true
            tempLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
            tempLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16).isActive = true
        }
@@ -118,7 +134,7 @@ class WeatherViewCotroller: UIViewController {
     }
     
     func setupHumidityLabel() {
-        humidityLabel.text = "80 mm"
+        humidityLabel.text = "\(humidityPassed) mm"
         humidityLabel.textAlignment = .center
         humidityLabel.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         view.addSubview(humidityLabel)
@@ -131,7 +147,7 @@ class WeatherViewCotroller: UIViewController {
     }
 
     func setupCloudLabel() {
-        cloudLabel.text = "50%"
+        cloudLabel.text = "\(cloudPassed)%"
         cloudLabel.textAlignment = .center
         cloudLabel.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         view.addSubview(cloudLabel)
@@ -144,7 +160,8 @@ class WeatherViewCotroller: UIViewController {
     }
 
     func setupWindyLabel() {
-        WindyLabel.text = "5 m/s"
+        let intWind = Int(windPassed)
+        WindyLabel.text = "\(intWind) m/s"
         WindyLabel.textAlignment = .center
         WindyLabel.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         view.addSubview(WindyLabel)
