@@ -173,4 +173,5 @@ class WeatherViewCotroller: UIViewController {
         WindyLabel.heightAnchor.constraint(equalToConstant: 60).isActive = true
     }
     
+    
 }
